@@ -38,7 +38,7 @@ startButton.addEventListener('click', () => {
     stopTimer();
     startButton.textContent = 'Start';
   } else {
-    startTimer(25); // Set timer duration in minutes
+    startTimer(0.10); // Set timer duration in minutes
     startButton.textContent = 'Stop';
   }
   isTimerRunning = !isTimerRunning;
@@ -46,7 +46,7 @@ startButton.addEventListener('click', () => {
 
 resetButton.addEventListener('click', () => {
   stopTimer();
-  timeDisplay.textContent = '25:00';
+  timeDisplay.textContent = '00:10';
   startButton.textContent = 'Start';
   isTimerRunning = false;
 });
