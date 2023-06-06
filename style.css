@@ -1,0 +1,14 @@
+#timer {
+  text-align: center;
+}
+
+#time-display {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 0 10px;
+}
