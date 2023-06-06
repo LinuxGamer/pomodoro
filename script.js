@@ -1,5 +1,6 @@
 // Get timer elements
 const timeDisplay = document.getElementById('time-display');
+const sessionType = document.getElementById('session-type');
 const startButton = document.getElementById('start-button');
 const resetButton = document.getElementById('reset-button');
 const workTimeInput = document.getElementById('work-time');
@@ -9,6 +10,7 @@ let countdown;
 let isTimerRunning = false;
 let workTime = parseInt(workTimeInput.value, 10);
 let breakTime = parseInt(breakTimeInput.value, 10);
+let isWorkSession = true;
 
 function startTimer(duration) {
   let timer = duration * 60;
@@ -28,7 +30,7 @@ function startTimer(duration) {
       clearInterval(countdown);
       timeDisplay.textContent = '00:00';
       alert('Time is up!');
-      if (isTimerRunning) {
+      if (isWorkSession) {
         startBreakTimer();
       } else {
         startWorkTimer();
@@ -38,11 +40,15 @@ function startTimer(duration) {
 }
 
 function startWorkTimer() {
+  isWorkSession = true;
+  sessionType.textContent = 'Work';
   workTime = parseInt(workTimeInput.value, 10);
   startTimer(workTime);
 }
 
 function startBreakTimer() {
+  isWorkSession = false;
+  sessionType.textContent = 'Break';
   breakTime = parseInt(breakTimeInput.value, 10);
   startTimer(breakTime);
 }
@@ -57,7 +63,11 @@ startButton.addEventListener('click', () => {
     stopTimer();
     startButton.textContent = 'Start';
   } else {
-    startWorkTimer();
+    if (isWorkSession) {
+      startWorkTimer();
+    } else {
+      startBreakTimer();
+    }
     startButton.textContent = 'Stop';
   }
   isTimerRunning = !isTimerRunning;
@@ -66,6 +76,7 @@ startButton.addEventListener('click', () => {
 resetButton.addEventListener('click', () => {
   stopTimer();
   timeDisplay.textContent = workTimeInput.value + ':00';
+  sessionType.textContent = 'Work';
   startButton.textContent = 'Start';
   isTimerRunning = false;
 });
